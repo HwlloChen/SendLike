@@ -102,51 +102,28 @@ class SendLikePlugin(BasePlugin):
             return f"❓ 点赞结果未知，请检查Napcat服务状态"
     
     @handler(PersonNormalMessageReceived)
-    async def person_message_handler(self, ctx: EventContext):
-        """处理私聊消息"""
+    @handler(GroupNormalMessageReceived)
+    async def message_handler(self, ctx: EventContext):
+        """统一处理私聊和群聊消息"""
         msg = ctx.event.text_message.strip()
         sender_id = str(ctx.event.sender_id)
-        
+        launcher_id = ctx.event.launcher_id
+
         # 解析点赞消息
         is_match, times = self.parse_like_message(msg)
-        
+
         if is_match:
             self.ap.logger.info(f"收到私聊点赞请求，用户ID: {sender_id}, 次数: {times}")
-            
+
             # 发送点赞请求
             result = await self.send_like(sender_id, times)
-            
+
             # 生成回复消息
             reply_msg = self.get_reply_message(result, sender_id, times)
-            
-            # 回复用户
+
+            # 回复消息
             ctx.add_return("reply", [reply_msg])
-            
-            # 阻止默认行为
-            ctx.prevent_default()
-    
-    @handler(GroupNormalMessageReceived)
-    async def group_message_handler(self, ctx: EventContext):
-        """处理群聊消息"""
-        msg = ctx.event.text_message.strip()
-        sender_id = str(ctx.event.sender_id)
-        group_id = str(ctx.event.group_id)
-        
-        # 解析点赞消息
-        is_match, times = self.parse_like_message(msg)
-        
-        if is_match:
-            self.ap.logger.info(f"收到群聊点赞请求，用户ID: {sender_id}, 群ID: {group_id}, 次数: {times}")
-            
-            # 发送点赞请求
-            result = await self.send_like(sender_id, times)
-            
-            # 生成回复消息
-            reply_msg = self.get_reply_message(result, sender_id, times)
-            
-            # 回复群消息
-            ctx.add_return("reply", [reply_msg])
-            
+
             # 阻止默认行为
             ctx.prevent_default()
     
