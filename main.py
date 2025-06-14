@@ -10,7 +10,7 @@ Napcat自动点赞插件
 支持"点赞"（默认10次）和"点赞 [次数]"（1-20次，超出按20次处理）两种格式
 """
 
-@register(name="SendLike", description="自动点赞", version="0.1.0", author="HwlloChen")
+@register(name="SendLike", description="自动点赞", version="0.1.1", author="HwlloChen")
 class SendLikePlugin(BasePlugin):
     
     def __init__(self, host: APIHost):
