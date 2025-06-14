@@ -106,7 +106,7 @@ class SendLikePlugin(BasePlugin):
     @handler(GroupMessageReceived)
     async def message_handler(self, ctx: EventContext):
         """统一处理私聊和群聊消息"""
-        msg = ctx.event.text_message.strip()
+        msg = str(ctx.event.message_chain).strip()
         sender_id = str(ctx.event.sender_id)
 
         # 解析点赞消息
