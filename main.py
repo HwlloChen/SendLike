@@ -107,13 +107,12 @@ class SendLikePlugin(BasePlugin):
         """统一处理私聊和群聊消息"""
         msg = ctx.event.text_message.strip()
         sender_id = str(ctx.event.sender_id)
-        launcher_id = ctx.event.launcher_id
 
         # 解析点赞消息
         is_match, times = self.parse_like_message(msg)
 
         if is_match:
-            self.ap.logger.info(f"收到私聊点赞请求，用户ID: {sender_id}, 次数: {times}")
+            self.ap.logger.info(f"收到点赞请求，用户ID: {sender_id}, 次数: {times}")
 
             # 发送点赞请求
             result = await self.send_like(sender_id, times)
