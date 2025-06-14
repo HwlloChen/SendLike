@@ -122,10 +122,15 @@ class SendLikePlugin(BasePlugin):
             reply_msg = self.get_reply_message(result, sender_id, times)
 
             # 回复消息
-            ctx.add_return("reply", [reply_msg])
+            await ctx.send_message(
+                ctx.event.launcher_type,
+                str(ctx.event.launcher_id),
+                [reply_msg]
+            )
 
             # 阻止默认行为
             ctx.prevent_default()
+            return
     
     def __del__(self):
         """插件卸载时触发"""
