@@ -1,0 +1,3 @@
+# 自动点赞插件配置文件
+# OneBot API 服务地址
+onebot_api_url: http://127.0.0.1:3000
