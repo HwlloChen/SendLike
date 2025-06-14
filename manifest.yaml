@@ -5,7 +5,7 @@ metadata:
   author: HwlloChen  # 插件作者，修改为你的名称
   name: SendLike  # 插件名称，修改为你的插件名称
   repository: 'https://github.com/HwlloChen/SendLike'  # 插件仓库地址，修改为你的插件 GitHub 仓库地址
-  version: 0.1.1  # 插件版本，修改为你的插件版本
+  version: 0.1.2  # 插件版本，修改为你的插件版本
   description:  # 插件简介，修改为你的插件简介，支持多语言
     en_US: Plugin for sending likes
     zh_CN: 发送点赞

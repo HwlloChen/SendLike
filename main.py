@@ -7,10 +7,10 @@ from pkg.plugin.events import PersonNormalMessageReceived, GroupNormalMessageRec
 
 """
 Napcat自动点赞插件
-支持"点赞"（默认10次）和"点赞 [次数]"（1-20次，超出按20次处理）两种格式
+支持"赞我"（默认10次）和"赞我 [次数]"（1-20次，超出按20次处理）两种格式
 """
 
-@register(name="SendLike", description="自动点赞", version="0.1.1", author="HwlloChen")
+@register(name="SendLike", description="自动点赞", version="0.1.2", author="HwlloChen")
 class SendLikePlugin(BasePlugin):
     
     def __init__(self, host: APIHost):
@@ -69,12 +69,12 @@ class SendLikePlugin(BasePlugin):
         """解析点赞消息，返回 (是否匹配, 点赞次数)"""
         msg = msg.strip()
         
-        # 只处理"点赞"或"点赞 [次数]"格式
-        if msg == "点赞":
+        # 只处理"赞我"或"赞我 [次数]"格式
+        if msg == "赞我":
             return True, 10  # 默认10次
-        elif msg.startswith("点赞 "):
+        elif msg.startswith("赞我 "):
             try:
-                times_str = msg[3:].strip()  # 去掉"点赞 "前缀
+                times_str = msg[3:].strip()  # 去掉"赞我 "前缀
                 times = int(times_str)
                 # 限制最小次数为1，最大次数为20
                 if times >= 1:
@@ -101,8 +101,8 @@ class SendLikePlugin(BasePlugin):
         else:
             return f"❓ 点赞结果未知，请检查Napcat服务状态"
     
-    @handler(PersonNormalMessageReceived)
-    @handler(GroupNormalMessageReceived)
+    @handler(PersonMessageReceived)
+    @handler(GroupMessageReceived)
     async def message_handler(self, ctx: EventContext):
         """统一处理私聊和群聊消息"""
         msg = ctx.event.text_message.strip()
