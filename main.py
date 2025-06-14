@@ -3,7 +3,8 @@ import yaml
 import aiohttp
 import asyncio
 from pkg.plugin.context import register, handler, BasePlugin, APIHost, EventContext
-from pkg.plugin.events import PersonNormalMessageReceived, GroupNormalMessageReceived
+from pkg.plugin.events import *  # 导入事件类
+from pkg.platform.types import *
 
 """
 Napcat自动点赞插件
