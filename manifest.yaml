@@ -28,4 +28,4 @@ spec:
 execution:
   python:
     path: main.py  # 插件主程序路径，必须与上方插件入口代码的文件名相同
-    attr: SendLike  # 插件类名，必须与上方代码中声明的类名相同
+    attr: SendLikePlugin  # 插件类名，必须与上方代码中声明的类名相同
